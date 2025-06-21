@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nest_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - local-network
+
+  redis:
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass myP@ssWord
+    volumes:
+      - redis-data:/data
+    networks:
+      - local-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  local-network:
+    driver: bridge

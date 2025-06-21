@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "http_400": "Yêu cầu không hợp lệ",
+    "http_401": "Chưa được xác thực",
+    "http_403": "Không có quyền truy cập",
+    "http_404": "Không tìm thấy",
+    "http_409": "Xung đột",
+    "http_422": "Lỗi logic nghiệp vụ",
+    "http_503": "Dịch vụ không khả dụng",
+    "http_500": "Lỗi máy chủ nội bộ",
+    "validation": "Xác thực thất bại",
+    "not_found": "Không tìm thấy",
+    "conflict": "Xảy ra xung đột",
+    "foreign_key_constraint": "Vi phạm ràng buộc khóa ngoại",
+    "forbidden": "Không có quyền truy cập",
+    "service_unavailable": "Kết nối cơ sở dữ liệu thất bại",
+    "unprocessable_entity": "Lỗi logic nghiệp vụ",
+    "internal_server_error": "Lỗi máy chủ nội bộ",
+    "unauthorized": "Chưa được xác thực",
+    "permission_denied": "Bị từ chối quyền",
+    "user_not_found": "Người dùng không tồn tại hoặc đã bị xoá",
+    "credential_invalid": "Thông tin đăng nhập không hợp lệ",
+    "unverified": "Tài khoản chưa được xác minh",
+    "duplicate_email": "Email đã tồn tại",
+    "email_already_exists": "Email {email} đã tồn tại",
+    "user_with_email_not_found": "Người dùng với email ${email} không tồn tại hoặc đã bị xoá",
+    "role_not_found": "Vai trò {role} không tìm thấy khi tạo người dùng"
+  },
+  "validation": {
+    "required": "{field} là bắt buộc",
+    "invalid_email": "{field} phải là email hợp lệ",
+    "invalid_type": "{field} có kiểu dữ liệu không hợp lệ",
+    "too_small": "{field} phải lớn hơn {minimum}",
+    "unknown": "Lỗi xác thực không xác định"
+  },
+  "zod_mapping": {
+    "invalid_type": "validation.invalid_type",
+    "required": "validation.required",
+    "invalid_string": "validation.invalid_string",
+    "too_small": "validation.too_small",
+    "custom": "validation.required"
+  }
+}

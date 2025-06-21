@@ -1,0 +1,4 @@
+export const TOKEN_EXPIRATION = {
+    REFRESH_TOKEN_DAYS: 7,
+    MILLISECONDS_PER_DAY: 24 * 60 * 60 * 1000
+}

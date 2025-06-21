@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - NODE_ENV=development
+    networks:
+      - dev-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nest_db_dev
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-dev-data:/var/lib/mysql
+    networks:
+      - dev-network
+
+  redis:
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass devP@ssWord
+    volumes:
+      - redis-dev-data:/data
+    networks:
+      - dev-network
+
+volumes:
+  mysql-dev-data:
+  redis-dev-data:
+
+networks:
+  dev-network:
+    driver: bridge

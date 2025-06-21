@@ -1,0 +1,68 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.test
+.env.local
+.env.*.local
+!.env.example  # Keep an example env file
+
+# Build outputs
+dist/
+.cache/
+out/
+.next/
+.nuxt/
+.vercel/
+.husky/_
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# NestJS-specific
+node_modules/
+nestjs-cli.json
+*.d.ts
+*.js.map
+*.js
+
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+Dockerfile
+Dockerfile.dev
+.dockerignore
+
+# Prisma (if using)
+prisma/*.db
+prisma/migrations/
+
+# Jest & Testing
+coverage/
+.nyc_output/
+jest.cache/
+jest-transform-cache/
+
+credentials/

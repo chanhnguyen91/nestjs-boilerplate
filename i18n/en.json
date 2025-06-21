@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "http_400": "Bad Request",
+    "http_401": "Unauthorized",
+    "http_403": "Forbidden",
+    "http_404": "Not Found",
+    "http_409": "Conflict",
+    "http_422": "Unprocessable Entity",
+    "http_503": "Service Unavailable",
+    "http_500": "Internal Server Error",
+    "validation": "Validation failed",
+    "not_found": "Not Found",
+    "conflict": "Conflict occurred",
+    "foreign_key_constraint": "Foreign key constraint violation",
+    "forbidden": "Forbidden",
+    "service_unavailable": "Database connection failed",
+    "unprocessable_entity": "Business logic error",
+    "internal_server_error": "Internal Server Error",
+    "unauthorized": "Unauthorized",
+    "permission_denied": "Permission denied",
+    "user_not_found": "User does not exist or has been deleted",
+    "credential_invalid": "Invalid credentials",
+    "unverified": "Account not verified",
+    "duplicate_email": "Email already exists",
+    "email_already_exists": "Email {email} already exists",
+    "user_with_email_not_found": "User with email ${email} not found",
+    "role_not_found": "Role {role} not found during user registration"
+  },
+  "validation": {
+    "required": "{field} is required",
+    "invalid_email": "{field} must be a valid email",
+    "invalid_type": "{field} has an invalid type",
+    "too_small": "{field} must be greater than {minimum}",
+    "unknown": "Unknown validation error"
+  },
+  "zod_mapping": {
+    "invalid_type": "validation.invalid_type",
+    "required": "validation.required",
+    "invalid_string": "validation.invalid_string",
+    "too_small": "validation.too_small",
+    "custom": "validation.required"
+  }
+}
