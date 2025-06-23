@@ -5,16 +5,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:3000" # Chỉ expose cổng app
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=prod
       - MYSQL_HOST=mysql
       - REDIS_HOST=redis
     depends_on:
       - mysql
       - redis
     networks:
-      - dev-network
+      - prod-network
     restart: unless-stopped
   mysql:
     image: mysql:8.0
@@ -24,32 +24,30 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "${MYSQL_HOST_PORT}:3306" # Vẫn expose để debug
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
-      - dev-network
+      - prod-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       retries: 5
   redis:
     image: redis:6.2
-    ports:
-      - "${REDIS_HOST_PORT}:6379" # Vẫn expose để debug
     command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
     networks:
-      - dev-network
+      - prod-network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       retries: 5
 volumes:
   mysql-data:
+    driver: local
   redis-data:
+    driver: local
 networks:
-  dev-network:
+  prod-network:
     driver: bridge

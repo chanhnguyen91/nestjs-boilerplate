@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { addTransactionalDataSource } from 'typeorm-transactional';
@@ -8,7 +8,7 @@ import { redisStore } from 'cache-manager-redis-store';
 import { AuthModule } from './domains/auth/auth.module';
 import { UserModule } from './domains/user/user.module';
 import { RoleModule } from './domains/role/role.module';
-import { databaseConfig } from './config/database.config';
+import { databaseConfigFactory } from './config/database.config';
 import { WinstonProvider } from './common/utils/logger.util';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
@@ -18,29 +18,31 @@ import { I18nService } from './common/services/i18n.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.local', '.env'],
+      envFilePath: [`.env.${process.env.NODE_ENV || 'local'}`, '.env'],
       isGlobal: true,
+      cache: true,
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: async () => {
-        const dataSourceOptions = databaseConfig;
-        return dataSourceOptions;
-      },
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: databaseConfigFactory,
       dataSourceFactory: async (options) => {
         if (!options) {
           throw new Error('Invalid options passed');
         }
         return addTransactionalDataSource(new DataSource(options));
-      }
+      },
     }),
-    CacheModule.register({
-      store: redisStore as any,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-      auth_pass: process.env.REDIS_PASSWORD,
+    CacheModule.registerAsync({
+      useFactory: () => ({
+        store: redisStore,
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_HOST_PORT, 10),
+        auth_pass: process.env.REDIS_PASSWORD,
+        ttl: parseInt(process.env.CACHE_TTL_IN_SECOND, 10) || 5,
+        max: parseInt(process.env.CACHE_MAX_ITEM, 10) || 100,
+      }),
       isGlobal: true,
-      ttl: Number(process.env.CACHE_TTL_IN_SECOND) || 5,
-      max: Number(process.env.CACHE_MAX_ITEM) || 100,
     }),
     AuthModule,
     UserModule,
